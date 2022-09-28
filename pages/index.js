@@ -31,7 +31,7 @@ export default function Home() {
 				<section className='py-20'>
 					<div className='container'>
 						<div className='flex'>
-							<div className='w-2/3'>
+							<div className='w-full md:w-2/3'>
 								<AuthScreen
 									loginUser={loginUser}
 									userEmail={userEmail}

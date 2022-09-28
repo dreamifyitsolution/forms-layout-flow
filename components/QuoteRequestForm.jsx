@@ -8,8 +8,8 @@ const QuoteRequestForm = ({ loggedUser }) => {
 			</div>
 			{loggedUser && (
 				<div className='px-4 py-4'>
-					<div className='flex justify-start items-center pb-5 mb-5 border-b-2 border-dotted'>
-						<div className='w-1/3 flex items-center'>
+					<div className='flex flex-wrap justify-start items-center pb-5 mb-5 border-b-2 border-dotted'>
+						<div className='w-2/4 md:w-1/3 flex items-center'>
 							<label htmlFor='customSize' className='text-gray-600'>
 								Custom Size
 							</label>
@@ -20,7 +20,7 @@ const QuoteRequestForm = ({ loggedUser }) => {
 								className='mb-0 ml-5'
 							/>
 						</div>
-						<div className='w-1/3 flex items-center'>
+						<div className='w-2/4 md:w-1/3 flex items-center'>
 							<label htmlFor='customSize' className='text-gray-600'>
 								Custom Quantity
 							</label>
@@ -31,7 +31,7 @@ const QuoteRequestForm = ({ loggedUser }) => {
 								className='mb-0 ml-5'
 							/>
 						</div>
-						<div className='w-1/3 flex items-center'>
+						<div className='w-2/4 md:w-1/3 flex items-center'>
 							<label htmlFor='customSize' className='text-gray-600'>
 								Banding
 							</label>
@@ -44,8 +44,8 @@ const QuoteRequestForm = ({ loggedUser }) => {
 						</div>
 					</div>
 					<form action='' className='text-sm'>
-						<div className='flex -mx-3'>
-							<div className='w-1/2 px-3'>
+						<div className='flex flex-wrap -mx-3'>
+							<div className='w-full md:w-1/2 px-3'>
 								<div className='flex flex-row items-center  mb-4'>
 									<label
 										htmlFor='product'
@@ -115,7 +115,7 @@ const QuoteRequestForm = ({ loggedUser }) => {
 									</select>
 								</div>
 							</div>
-							<div className='w-1/2 px-3'>
+							<div className='w-full md:w-1/2 px-3'>
 								<div className='flex flex-row items-center  mb-4'>
 									<label htmlFor='product' className='w-1/3 mb-1 text-gray-600'>
 										Product Marketing Name
