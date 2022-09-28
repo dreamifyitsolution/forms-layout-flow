@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import data from '../utils/data';
 
 const QuoteRequestForm = ({ loggedUser }) => {
+	const [selectedProduct, setSelectedProduct] = useState('');
+	const [activeData, setActiveData] = useState(null);
+
+	useEffect(() => {
+		const res = data.filter((item) => item.id === +selectedProduct);
+		setActiveData(res[0]);
+	}, [selectedProduct]);
+
+	const handleProductChange = (e) => {
+		setSelectedProduct(e.target.value);
+	};
+
 	return (
 		<div className='border rounded-md mb-5'>
 			<div className='bg-gray-300 px-4 py-2'>
@@ -43,114 +56,111 @@ const QuoteRequestForm = ({ loggedUser }) => {
 							/>
 						</div>
 					</div>
-					<form action='' className='text-sm'>
-						<div className='flex flex-wrap -mx-3'>
-							<div className='w-full md:w-1/2 px-3'>
-								<div className='flex flex-row items-center  mb-4'>
-									<label
-										htmlFor='product'
-										className='w-1/3 mb-1 text-gray-600 '
-									>
-										Product
-									</label>
-									<select
-										class='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
-										id='selectedDropdownOption'
-										onchange='dropDownOptionChange(this, true);'
-									>
+
+					<div className='flex flex-wrap -mx-3'>
+						<div className='w-full md:w-1/2 px-3'>
+							<div className='flex flex-row items-center  mb-4'>
+								<label htmlFor='product' className='w-1/3 mb-1 text-gray-600 '>
+									Product
+								</label>
+								<select
+									className='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
+									id='selectedDropdownOption'
+									value={selectedProduct}
+									onChange={handleProductChange}
+								>
+									<option disabled='' value='' id='defaultOption'>
+										Please select a product
+									</option>
+									{data.map((item, key) => (
 										<option
+											key={key}
 											disabled=''
-											value='0'
-											selected=''
+											value={item.id}
 											id='defaultOption'
 										>
-											Please select a product
+											{item.name}
 										</option>
-										<option value='29'>AddOnProduct, AddOnProduct</option>
-										<option value='35'>Booklets, Booklets</option>
-										<option value='36'>Booklets, K-Bind Booklets</option>
-										<option value='37'>Booklets, Lockbound Booklets</option>
-										<option value='6'>Booklets, Perfect Bound Booklets</option>
-										<option value='1'>Booklets, Stapled Booklets</option>
-										<option value='34'>Booklets, Thread Sewn Booklets</option>
-										<option value='12'>Booklets, Wiro Bound Booklets</option>
-										<option value='9'>
-											Business Cards, Standard Business Cards
-										</option>
-										<option value='25'>Calendars, Calendars</option>
-										<option value='23'>Flags, Flags</option>
-										<option value='11'>Flat/Fold, Large</option>
-										<option value='32'>Flat/Fold, POS</option>
-										<option value='7'>Flat/Fold, Small</option>
-										<option value='31'>Mugs, Mugs</option>
-										<option value='24'>Notebooks, Notebooks</option>
-										<option value='33'>Packaging, Packaging</option>
-										<option value='28'>PPE, Visors and Protection</option>
-										<option value='14'>
-											Presentation Folders, Presentation Folders
-										</option>
-										<option value='16'>
-											Stickers and Labels, Stickers and Labels
-										</option>
-										<option value='27'>Tshirts, Tshirts</option>
-										<option value='13'>
-											Unbranded Samples, Unbranded Samples
-										</option>
-										<option value='15'>
-											Unfinished Sheets, Unfinished Sheets
-										</option>
-										<option value='17'>
-											Wide Format &amp; Display, A-Frames
-										</option>
-										<option value='19'>
-											Wide Format &amp; Display, Exhibition Pop-Ups
-										</option>
-										<option value='30'>Wide Format &amp; Display, POS</option>
-										<option value='21'>
-											Wide Format &amp; Display, PVC Banners
-										</option>
-										<option value='18'>
-											Wide Format &amp; Display, Roller Banners
-										</option>
-									</select>
-								</div>
+									))}
+								</select>
 							</div>
-							<div className='w-full md:w-1/2 px-3'>
+							{activeData && activeData.finishedSize && (
 								<div className='flex flex-row items-center  mb-4'>
 									<label htmlFor='product' className='w-1/3 mb-1 text-gray-600'>
-										Product Marketing Name
+										Finished Size
 									</label>
 									<select
-										class='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
+										className='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
 										id='selectedDropdownOption'
-										onchange='dropDownOptionChange(this, true);'
 									>
-										<option
-											disabled=''
-											value='0'
-											selected=''
-											id='defaultOption'
-										>
+										<option disabled='' value='0' id='defaultOption'>
 											Please select a product
 										</option>
+										{activeData.finishedSize.map((item, key) => (
+											<option value={item.name} id='defaultOption' key={key}>
+												{item.name}
+											</option>
+										))}
 									</select>
 								</div>
+							)}
+
+							{activeData && activeData.delivery && (
+								<div className='flex flex-row items-center  mb-4'>
+									<label htmlFor='product' className='w-1/3 mb-1 text-gray-600'>
+										Delivery
+									</label>
+									<select
+										className='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
+										id='selectedDropdownOption'
+									>
+										<option disabled='' value='0' id='defaultOption'>
+											Please select a product
+										</option>
+										{activeData.delivery.map((item, key) => (
+											<option value={item.name} id='defaultOption' key={key}>
+												{item.name}
+											</option>
+										))}
+									</select>
+								</div>
+							)}
+						</div>
+						<div className='w-full md:w-1/2 px-3'>
+							<div className='flex flex-row items-center  mb-4'>
+								<label htmlFor='product' className='w-1/3 mb-1 text-gray-600'>
+									Product Marketing Name
+								</label>
+								<select
+									className='form-control w-2/3 px-2 py-2 focus:outline-none border rounded-md'
+									id='selectedDropdownOption'
+								>
+									<option disabled='' value='0' id='defaultOption'>
+										Please select a product
+									</option>
+									{activeData &&
+										activeData.marketingName.map((item, key) => (
+											<option value={item.name} id='defaultOption' key={key}>
+												{item.name}
+											</option>
+										))}
+								</select>
 							</div>
 						</div>
-						<div className='border-b-2 border-dotted border-gray-400 pb-4 mb-4'>
-							<textarea
-								name=''
-								id=''
-								rows='5'
-								className='w-full border focus:outline-none p-2 rounded-md'
-							></textarea>
-						</div>
-						<div className='flex justify-end'>
-							<button className='px-6 py-2 bg-blue-600 text-white'>
-								Send Quote
-							</button>
-						</div>
-					</form>
+					</div>
+					<div className='border-b-2 border-dotted border-gray-400 pb-4 mb-4'>
+						<textarea
+							name=''
+							id=''
+							rows='5'
+							className='w-full border focus:outline-none p-2 rounded-md'
+						></textarea>
+					</div>
+					<div className='flex justify-end'>
+						<button className='px-6 py-2 bg-blue-600 text-white'>
+							Send Quote
+						</button>
+					</div>
 				</div>
 			)}
 		</div>
